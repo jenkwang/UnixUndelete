@@ -1,5 +1,5 @@
 # UnixUndelete
-Variation of rm on Unix. Allows users to safely remove files into a trashbin.
+Variation of rm on Unix. Allows users to safely remove files into a trashbin.  
 Implemented in both Bash and C. C implementation only has srm, unrm, and trash.
 
 Commands:  
