@@ -1,0 +1,10 @@
+#!/bin/bash
+#makes global variable for trash
+#will be placed in directory
+#depending on username
+#-p flag creates directory only if
+#it does not exist
+#du is then performed on the folder
+export TRASH=/home/$USER/146/trash
+mkdir -p "$TRASH"
+du $TRASH

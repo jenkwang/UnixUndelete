@@ -1,0 +1,43 @@
+#!/bin/bash
+#The safe place where are files are placed
+#are in a trash folder in the path
+#/home/jennysc1/146/trash
+#depending on user, directory will also
+#change to /home/user/146/trash
+#will only create directory if it does not
+#already exist
+export TRASH=/home/$USER/146/trash
+mkdir -p "$TRASH"
+#two variables options if there are options
+#and filenames for array of the files
+options=""
+filenames=()
+for arg in $@
+do
+	#if called with any options exec regular /bin/rm
+	if [[ $arg = -* ]]
+	then
+		 options="$options arg"
+	#else put argument/file in an array
+	else 
+		filenames+=( "$arg" )
+	fi
+done
+#if options are given then the files will be
+#removed with the given options
+if [[ $options = [[:space:]]-* ]]
+then
+	 rm $options ${filenames[@]}
+#if no options are given then files will just
+#be normally srm'd; loops through array
+else
+	for f in ${filenames[@]}
+	do
+		#trashes old srm'd file and srm the new one
+		if [[ -e $TRASH/$f ]]
+    	then   
+        	rm -r $TRASH/$f
+		fi
+		mv $f $TRASH
+	done
+fi

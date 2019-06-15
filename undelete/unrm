@@ -1,0 +1,31 @@
+#!/bin/bash
+#The safe place where are files are placed
+#are in a trash folder in the path
+#/home/jennysc1/146/trash
+#depending on user, directory will also
+#change to /home/user/146/trash
+#will only create directory if it does not
+#already exist
+export TRASH=/home/$USER/146/trash
+mkdir -p "$TRASH"
+#filenames variable for array of the files
+filenames=()
+for arg in $@
+do
+    #put argument/file in an array
+    filenames+=( "$arg" )
+done
+
+#loop through all the files in the
+#array of filenames
+for f in ${filenames[@]}
+do
+	#if the file has been srm'd move it
+	#back to the current directory
+	#can unrm a whole hierarchy as a whole
+	if [[ -e $TRASH/$f ]]
+	then
+		mv $TRASH/$f . 
+	fi
+done
+
